@@ -1,9 +1,11 @@
 FROM python:3.11-slim
 
-WORKDIR /app
+# Instala tzdata para suporte correto a timezones
+RUN apt-get update && apt-get install -y tzdata gcc && rm -rf /var/lib/apt/lists/*
 
-# Instala ferramentas básicas necessárias
-RUN apt-get update && apt-get install -y gcc && rm -rf /var/lib/apt/lists/*
+ENV TZ=America/Sao_Paulo
+
+WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
